@@ -1,5 +1,6 @@
 {
     "name": "torzer/gitlab-flow",
+    "description": "Laravel package with console commands that help developers to inteeract with Gitlab using a comprehensive flow",
     "keywords": ["Laravel", "package", "API", "Rest", "git", "Gitlab", "workflow"],
     "license": "MIT",
     "type": "package",
