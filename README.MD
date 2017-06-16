@@ -60,3 +60,55 @@ To change the behavior use some of the following options:
 * --remove-source - used when mergin after MR, set the acceptance to remove source
 * --tag-after[=TAG-AFTER] - used when mergin after MR, checkout target source, pull it and tag it after merge
 * --merge - set this if you want to create the MR and then merge it
+
+Some uses:
+
+### MR with no default source and target
+
+This gonna ask you for assignee and milestone, setting the title for a MR from dev to stage branches.
+
+```
+la5 gitlab:mr --source dev --target stage -T 'Staging milestone 3'
+```
+
+### MR pushing last changes before open
+
+This gonna push the last commits to repository before opening the MR.
+
+```
+la5 gitlab:mr --push
+```
+
+### MR followed by merge acceptance
+
+This gonna push the last commits to repository before opening the MR, open MR,
+list changes and merge it to target branch, tag it, change local branch to target and pull
+from repository.
+
+```
+la5 gitlab:mr --no-assignee --no-milestone --push --remove-source --merge --tag-after 0.0.3
+```
+
+See merging request below to understand the merging behavior of the above command.
+
+## Merging Requests
+
+The command is used to create accept a Merge Request from its id.
+If you type the foloowing command:
+
+```
+php artisan gitlab:mr-merge 99
+```
+
+It will check the MR state, list members of the project to you choose assignee,
+list milestones to you choose, list the changes if confirmed and execute the merge
+of the MR !99 (change this number by MR id you want to accept).
+
+You can change this behavior using some of the following options:
+
+* -m, --message[=MESSAGE] - set the message to be inserted in MR acceptance
+* --remove-source - remove the source branch after merge
+* -P, --push - push current branch to remote to insert in current branch MR before merge it
+* --update-local - checkout target source and pull it after merge
+* --tag-after[=TAG-AFTER] - local checkout to target source, pull it and tag it after merge
+* -y, --yes - don't interact listing commits and issues or asking for confirmation
