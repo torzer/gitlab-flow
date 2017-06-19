@@ -57,6 +57,8 @@ class GitlabAcceptMR extends Command
 
         if ($this->option('no-push') == false) {
             if ($this->confirm('PUSH changes before accept the MR?', true)) {
+                $this->info('Pushing ' . $source . ' to origin ... wait ...');
+
                 if (\Torzer\GitlabFlow\Helpers\Git::push($source) === false) {
                     if ($this->confirm('Continue?') == false) {
                         $this->warn('Command cancelled!');

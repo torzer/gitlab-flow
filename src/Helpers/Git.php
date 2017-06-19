@@ -10,7 +10,6 @@ namespace Torzer\GitlabFlow\Helpers;
 class Git {
 
     static function push($source) {
-        $this->info('Pushing ' . $source . ' to origin ... wait ...');
         exec('git push origin ' . $source . ' --progress 2>&1', $out, $status);
         foreach ($out as $line) {
             $this->line($line);
