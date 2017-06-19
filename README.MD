@@ -11,7 +11,7 @@ Use composer to install it:
 composer require torzer/gitlab-flow
 ```
 
-Register the ServiceProvider in `config/app.path`
+Register the ServiceProvider in `config/app.php`
 
 ```php
 Torzer\GitlabFlow\GitlabFlowServiceProvider::class,
