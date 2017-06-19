@@ -9,13 +9,19 @@ namespace Torzer\GitlabFlow\Helpers;
  */
 class Git {
 
-    static function push($source) {
+    static function push($source, $console = null) {
+        $console->info('Pushing ' . $source . ' to origin ... wait ...');
         exec('git push origin ' . $source . ' --progress 2>&1', $out, $status);
         foreach ($out as $line) {
-            $this->line($line);
+            $console->line($line);
         }
         if ($status) {
-            return false;
+            if ($console) {
+                if ($console->confirm('Continue?') == false) {
+                    $console->warn('Command cancelled!');
+                    return false;
+                }
+            }
         }
 
         return true;
