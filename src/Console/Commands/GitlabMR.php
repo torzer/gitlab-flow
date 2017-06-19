@@ -51,8 +51,8 @@ class GitlabMR extends Command
      */
     public function handle()
     {
-        $gl = Gitlab::client(config('gitlab.api.token'), config('gitlab.api.url'));
-        $project_id = config('gitlab.default.project.id');
+        $gl = Gitlab::client(config('gitlab-flow.api.token'), config('gitlab-flow.api.url'));
+        $project_id = config('gitlab-flow.default.project.id');
 
         $target = $this->getTarget();
 
@@ -161,7 +161,7 @@ class GitlabMR extends Command
     }
 
     protected function getTarget() {
-        $target = config('gitlab.default.mr.target-branch');
+        $target = config('gitlab-flow.default.mr.target-branch');
         if ($this->option('target')) {
             $target = $this->option('target');
         }

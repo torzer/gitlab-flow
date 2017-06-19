@@ -18,7 +18,7 @@ class GitlabFlowServiceProvider extends ServiceProvider {
      */
     public function boot() {
         $this->publishes([
-            __DIR__ . '/config/gitlab.php' => config_path('gitlab.php')
+            __DIR__ . '/config/gitlab-flow.php' => config_path('gitlab-flow.php')
                 ], 'config');
 
         if ($this->app->runningInConsole()) {
@@ -36,7 +36,7 @@ class GitlabFlowServiceProvider extends ServiceProvider {
      */
     public function register() {
         $this->mergeConfigFrom(
-                __DIR__ . '/config/gitlab.php', 'gitlab'
+                __DIR__ . '/config/gitlab-flow.php', 'gitlab-flow'
         );
     }
 

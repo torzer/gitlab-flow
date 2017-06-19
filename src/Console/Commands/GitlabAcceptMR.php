@@ -46,9 +46,9 @@ class GitlabAcceptMR extends Command
     public function handle()
     {
         $mr_id = $this->argument('id');
-        $project_id = config('gitlab.default.project.id');
+        $project_id = config('gitlab-flow.default.project.id');
 
-        $gl = Gitlab::client(config('gitlab.api.token'), config('gitlab.api.url'));
+        $gl = Gitlab::client(config('gitlab-flow.api.token'), config('gitlab-flow.api.url'));
 
         $this->info('Checking MR state ...');
         if ($this->isMergedClosed($gl, $project_id, $mr_id)) {
