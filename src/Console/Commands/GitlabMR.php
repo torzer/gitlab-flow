@@ -21,8 +21,9 @@ class GitlabMR extends Command
                             . '{--no-milestone : set this if no milestone will be set, otherwise you\'ll be asked to choose the milestone }'
                             . '{--wip : set this if you want to create a WIP MR }'
                             . '{--P|push : push current branch to remote origin before open MR }'
-                            . '{--remove-source : used when mergin after MR, set the acceptance to remove source }'
-                            . '{--tag-after= : used when mergin after MR, checkout target source, pull it and tag it after merge}'
+                            . '{--remove-source : used when merging after MR, set the acceptance to remove source }'
+                            . '{--update-local : used when merging after MR, checkout target source and pull it after merge}'
+                            . '{--tag-after= : used when merging after MR, checkout target source, pull it and tag it after merge}'
                             . '{--merge : set this if you want to create the MR and then merge it }';
 
     /**
@@ -101,6 +102,7 @@ class GitlabMR extends Command
                 $this->call('gitlab:mr-merge', [
                     'id' => $mr->iid,
                     '--remove-source' => $this->option('remove-source'),
+                    '--update-local' => $this->option('update-local'),
                     '--tag-after' => $this->option('tag-after'),
                 ]);
             }
