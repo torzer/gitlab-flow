@@ -16,10 +16,7 @@ class Git {
             $this->line($line);
         }
         if ($status) {
-            if ($this->confirm('Continue?') == false) {
-                $this->warn('Command cancelled!');
-                return false;
-            }
+            return false;
         }
 
         return true;
