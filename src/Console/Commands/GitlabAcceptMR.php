@@ -16,7 +16,7 @@ class GitlabAcceptMR extends Command
                             . '{id : the id (number) of the MR at the project}'
                             . '{--m|message= : a message to be inserted in MR acceptance}'
                             . '{--remove-source : remove the source branch after merge}'
-                            . '{--P|push : push current branch to remote to insert in current branch MR before merge it }'
+                            . '{--no-push : don\'t push current branch to remote to insert in current branch MR before merge it }'
                             . '{--update-local : checkout target source and pull it after merge}'
                             . '{--tag-after= : checkout target source, pull it and tag it after merge}'
                             . '{--y|yes : don\'t interact listing commits and issues or asking for confirmation}';
@@ -53,6 +53,12 @@ class GitlabAcceptMR extends Command
         $this->info('Checking MR state ...');
         if ($this->isMergedClosed($gl, $project_id, $mr_id)) {
             return $this->error('Can\'t accept, MR !' . $mr_id . ' is Merged or Closed already !!');
+        }
+
+        if ($this->option('no-push') == false) {
+            if ($this->confirm('PUSH changes before accept the MR?', true)) {
+                if (\Torzer\GitlabFlow\Helpers\Git::push($source) === false) return;
+            }
         }
 
         if ($this->option('yes') == false) {

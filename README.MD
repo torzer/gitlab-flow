@@ -45,7 +45,8 @@ A MR gonna be created on Gitlab project, using the name of the branch as title.
 If you are using feature branch name, starting with the issue number that the branch resolves,
 the command inject a `Closes #issue` in description.
 
-The default command gonna ask you to choose the assignee and milestone from the project.
+The default command gonna confirm if it must execute a `git push` as the first step of the proccess
+and then ask you to choose the assignee and milestone from the project.
 
 To change the behavior use some of the following options:
 
@@ -56,7 +57,7 @@ To change the behavior use some of the following options:
 * --no-assignee - set this if no assignee will be made, otherwise you'll be asked to choose the assignee user
 * --no-milestone - set this if no milestone will be set, otherwise you'll be asked to choose the milestone
 * --wip - set this if you want to create a WIP MR
-* -P, --push - push current branch to remote origin before open MR
+* --no-push : don\'t push current branch to remote origin before open MR
 * --remove-source - used when mergin after MR, set the acceptance to remove source
 * --tag-after[=TAG-AFTER] - used when mergin after MR, checkout target source, pull it and tag it after merge
 * --merge - set this if you want to create the MR and then merge it
@@ -66,6 +67,8 @@ Some uses:
 ### MR with no default source and target
 
 This gonna ask you for assignee and milestone, setting the title for a MR from dev to stage branches.
+
+The default command gonna confirm if it must execute a `git push` as the first step of the proccess.
 
 ```
 la5 gitlab:mr --source dev --target stage -T 'Staging milestone 3'
@@ -108,7 +111,7 @@ You can change this behavior using some of the following options:
 
 * -m, --message[=MESSAGE] - set the message to be inserted in MR acceptance
 * --remove-source - remove the source branch after merge
-* -P, --push - push current branch to remote to insert in current branch MR before merge it
+* --no-push : don\'t push current branch to remote to insert in current branch MR before merge it
 * --update-local - checkout target source and pull it after merge
 * --tag-after[=TAG-AFTER] - local checkout to target source, pull it and tag it after merge
 * -y, --yes - don't interact listing commits and issues or asking for confirmation

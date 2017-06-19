@@ -20,7 +20,7 @@ class GitlabMR extends Command
                             . '{--no-assignee : set this if no assignee will be made, otherwise you\'ll be asked to choose the assignee user }'
                             . '{--no-milestone : set this if no milestone will be set, otherwise you\'ll be asked to choose the milestone }'
                             . '{--wip : set this if you want to create a WIP MR }'
-                            . '{--P|push : push current branch to remote origin before open MR }'
+                            . '{--no-push : don\'t push current branch to remote origin before open MR }'
                             . '{--remove-source : used when merging after MR, set the acceptance to remove source }'
                             . '{--update-local : used when merging after MR, checkout target source and pull it after merge}'
                             . '{--tag-after= : used when merging after MR, checkout target source, pull it and tag it after merge}'
@@ -58,8 +58,10 @@ class GitlabMR extends Command
 
         $source = $this->getSource();
 
-        if ($this->option('push')) {
-            if ($this->push($source) === false) return;
+        if ($this->option('no-push') == false) {
+            if ($this->confirm('PUSH changes before open the MR?', true)) {
+                if (\Torzer\GitlabFlow\Helpers\Git::push($source) === false) return;
+            }
         }
 
         $title = $this->getTitle($gl, $source, $project_id);
@@ -217,21 +219,5 @@ class GitlabMR extends Command
         }
 
         return $description;
-    }
-
-    protected function push($source) {
-        $this->info('Pushing ' . $source . ' to origin ... wait ...');
-        exec('git push origin ' . $source . ' --progress 2>&1', $out, $status);
-        foreach ($out as $line) {
-            $this->line($line);
-        }
-        if ($status) {
-            if ($this->confirm('Continue?') == false) {
-                $this->warn('MR cancelled!');
-                return false;
-            }
-        }
-
-        return true;
     }
 }
