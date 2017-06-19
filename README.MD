@@ -74,12 +74,12 @@ The default command gonna confirm if it must execute a `git push` as the first s
 la5 gitlab:mr --source dev --target stage -T 'Staging milestone 3'
 ```
 
-### MR pushing last changes before open
+### MR don't pushing last changes before open
 
-This gonna push the last commits to repository before opening the MR.
+This gonna don't push the last commits to repository before opening the MR.
 
 ```
-la5 gitlab:mr --push
+la5 gitlab:mr --no-push
 ```
 
 ### MR followed by merge acceptance
