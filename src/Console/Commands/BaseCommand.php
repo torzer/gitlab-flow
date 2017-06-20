@@ -29,7 +29,7 @@ abstract class BaseCommand extends Command {
     }
 
     protected function version() {
-        return exec('cd vendor/torzer/laravel-common; git describe --tags --abbrev=0');
+        return exec('cd vendor/torzer/gitlab-flow; git describe --tags --abbrev=0');
     }
 
 }
