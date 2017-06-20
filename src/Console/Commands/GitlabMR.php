@@ -5,7 +5,7 @@ namespace Torzer\GitlabFlow\Console\Commands;
 use Illuminate\Console\Command;
 use Torzer\GitlabClient\Gitlab;
 
-class GitlabMR extends Command
+class GitlabMR extends BaseCommand
 {
     /**
      * The name and signature of the console command.
@@ -51,6 +51,8 @@ class GitlabMR extends Command
      */
     public function handle()
     {
+        $this->displayLogo();
+        
         $gl = Gitlab::client(config('gitlab-flow.api.token'), config('gitlab-flow.api.url'));
         $project_id = config('gitlab-flow.default.project.id');
 
