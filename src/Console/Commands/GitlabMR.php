@@ -194,7 +194,7 @@ class GitlabMR extends Command
 
             if ($issue > 0) {
                 $this->info('Loading issue title ...');
-                $title = 'Resolve "'. $gl->getIssue($project_id, $issue[0])->title .'"';
+                $title = 'Resolve "'. $gl->getIssue($project_id, $issue)->title .'"';
                 $this->warn('Title: ' . $title);
             }
         }
