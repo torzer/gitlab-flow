@@ -22,11 +22,12 @@ Torzer\GitlabFlow\GitlabFlowServiceProvider::class,
 In `.env` file you must set the following variables:
 
 ```ini
+GITLAB_API_URL=your-gitlab-instance
 GITLAB_API_TOKEN=your-gitlab-token
 GITLAB_DEFAULT_PROJECT_ID=project-id-on-gitlab
 GITLAB_DEFAULT_MR_TARGET_BRANCH=dev
 ```
-* **GITLAB_API_URL** is the base URL to acces Gitlab API, default is 'https://gitlab.com/api/v4/'.
+* **GITLAB_API_URL** this is optional and only must be set if it is different from default value. Is the base URL to acces Gitlab API, default is 'https://gitlab.com/api/v4/'.
 You can change this to yours self hosted instance;
 * **GITLAB_API_TOKEN** is your's private API Token to access Gitlab API;
 * **GITLAB_DEFAULT_PROJECT_ID** is the project id on Gitlab, you can find it in settings menu;
