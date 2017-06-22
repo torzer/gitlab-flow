@@ -175,15 +175,6 @@ class GitlabMR extends BaseCommand
         return $target;
     }
 
-    protected function getSource() {
-        $source = exec('git rev-parse --abbrev-ref HEAD');
-        if ($this->option('source')) {
-            $source = $this->option('source');
-        }
-
-        return $source;
-    }
-
     protected function getIssue($source) {
         return $issue = intval(explode('-', $source)[0]);
     }

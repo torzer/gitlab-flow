@@ -32,4 +32,14 @@ abstract class BaseCommand extends Command {
         return exec('cd vendor/torzer/gitlab-flow; git describe --tags --abbrev=0');
     }
 
+
+    protected function getSource() {
+        $source = exec('git rev-parse --abbrev-ref HEAD');
+        if ($this->option('source')) {
+            $source = $this->option('source');
+        }
+
+        return $source;
+    }
+
 }
