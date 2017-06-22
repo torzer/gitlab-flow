@@ -52,7 +52,7 @@ class GitlabMR extends BaseCommand
     public function handle()
     {
         $this->displayLogo();
-        
+
         $gl = Gitlab::client(config('gitlab-flow.api.token'), config('gitlab-flow.api.url'));
         $project_id = config('gitlab-flow.default.project.id');
 
@@ -67,6 +67,8 @@ class GitlabMR extends BaseCommand
         }
 
         $title = $this->getTitle($gl, $source, $project_id);
+        $this->line('Title: ' . $title);
+        $this->line('');
 
         $description = $this->getMRDescription($source);
 
