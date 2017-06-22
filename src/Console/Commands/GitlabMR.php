@@ -67,8 +67,6 @@ class GitlabMR extends BaseCommand
         }
 
         $title = $this->getTitle($gl, $source, $project_id);
-        $this->line('Title: ' . $title);
-        $this->line('');
 
         $description = $this->getMRDescription($source);
 
@@ -185,12 +183,11 @@ class GitlabMR extends BaseCommand
         if ($this->option('title')) {
             $title = $this->option('title');
         } else {
-            $title = 'Resolve "' . $source . '"';
+            $title = 'Merge "' . $source . '" -> "' . $this->getTarget() . '"';
 
             if ($issue > 0) {
                 $this->info('Loading issue title ...');
                 $title = 'Resolve "'. $gl->getIssue($project_id, $issue)->title .'"';
-                $this->warn('Title: ' . $title);
             }
         }
 
@@ -198,6 +195,8 @@ class GitlabMR extends BaseCommand
             $title = 'WIP: ' . $title;
         }
 
+        $this->warn('Title: ' . $title);
+        $this->line('');
         return $title;
 
     }
