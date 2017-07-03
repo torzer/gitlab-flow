@@ -73,7 +73,7 @@ This gonna ask you for assignee and milestone, setting the title for a MR from d
 The default command gonna confirm if it must execute a `git push` as the first step of the proccess.
 
 ```
-la5 gitlab:mr --source dev --target stage -T 'Staging milestone 3'
+php artisan gitlab:mr --source dev --target stage -T 'Staging milestone 3'
 ```
 
 ### MR don't pushing last changes before open
@@ -81,7 +81,7 @@ la5 gitlab:mr --source dev --target stage -T 'Staging milestone 3'
 This gonna don't push the last commits to repository before opening the MR.
 
 ```
-la5 gitlab:mr --no-push
+php artisan gitlab:mr --no-push
 ```
 
 ### MR followed by merge acceptance
@@ -91,12 +91,12 @@ list changes and merge it to target branch, tag it, change local branch to targe
 from repository.
 
 ```
-la5 gitlab:mr --no-assignee --no-milestone --push --remove-source --merge --tag-after 0.0.3
+php artisan gitlab:mr --no-assignee --no-milestone --push --remove-source --merge --tag-after 0.0.3
 ```
 
 See merging request below to understand the merging behavior of the above command.
 
-## Merging Requests
+## Accepting Merge Requests
 
 The command is used to create accept a Merge Request from its id.
 If you type the foloowing command:
@@ -117,3 +117,52 @@ You can change this behavior using some of the following options:
 * --update-local - checkout target source and pull it after merge
 * --tag-after[=TAG-AFTER] - local checkout to target source, pull it and tag it after merge
 * -y, --yes - don't interact listing commits and issues or asking for confirmation
+
+## Automating flows
+
+It is possible to "automate" the callig flows by setting a file named `.gitlab-flow` at
+the root folder of your Laravel application.
+
+This file has is expected to be a ini format, where the section names are the flow names
+and each option/argument is in a line. `command` option is required. See the following example:
+
+`.gitlab-flow`
+
+```.ini
+[default]
+command=mr
+--no-assignee
+--merge=
+--update-local=
+--remove-source=
+
+[stage-deploy]
+command=mr
+--source=dev
+--target=stage
+--title="Deploy, from DEV to STAGE"
+--merge=
+--update-local=
+--tag-after=ask
+```
+
+The `default` section is called if no flow name is passed to the command.
+
+To call the default flow:
+
+```
+php artisan gitlab:run
+```
+
+To call the stage-deploy section of the example:
+
+```
+php artisan gitlab:run stage-deploy
+```
+
+To see the flows in .gitlab-flow file:
+
+```
+php artisan gitlab:run --show-config
+```
+

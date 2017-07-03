@@ -25,6 +25,7 @@ class GitlabFlowServiceProvider extends ServiceProvider {
             $this->commands([
                 \Torzer\GitlabFlow\Console\Commands\GitlabMR::class,
                 \Torzer\GitlabFlow\Console\Commands\GitlabAcceptMR::class,
+                \Torzer\GitlabFlow\Console\Commands\GitlabRun::class,
             ]);
         }
     }
