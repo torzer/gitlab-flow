@@ -132,19 +132,21 @@ and each option/argument is in a line. `command` option is required. See the fol
 [default]
 command=mr
 --no-assignee
---merge=
---update-local=
---remove-source=
+--merge=1
+--update-local=1
+--remove-source=1
 
 [stage-deploy]
 command=mr
 --source=dev
 --target=stage
 --title="Deploy, from DEV to STAGE"
---merge=
---update-local=
+--merge=1
+--update-local=1
 --tag-after=ask
 ```
+
+**Note** that to _on_ an option you must sert it to number 1 (one).
 
 The `default` section is called if no flow name is passed to the command.
 
